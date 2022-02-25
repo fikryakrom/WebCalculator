@@ -20,6 +20,35 @@ function inputDigit(digit) {
         calculator.displayNumber += digit;
     }
 }
+const buttons = document.querySelectorAll(".button");
+for (let button of buttons) {
+    button.addEventListener('click', function(event) {
+        // biar elemen tombol yg diklik masuk ke display
+        const target = event.target;
+        //biar fungsi tombol CE kepake buat restart kalkulator
+        if(target.classList.contains('clear')) {
+            clearCalculator();
+            updateDisplay();
+            return;
+        }
+        if(target.classList.contains('negative')) {
+            inverseNumber();
+            updateDisplay();
+            return;
+        }
+        if(target.classList.contains('equals')) {
+            performCalculation();
+            updateDisplay();
+            return;
+        }
+        if(target.classList.contains('operator')) {
+            handleOperator(target.innerText)
+            return;
+        }
+        inputDigit(target.innerText);
+        updateDisplay()
+    });
+}
 function inverseNumber() {
     if(calculator.displayNumber === '0') {
         return;
@@ -52,6 +81,7 @@ function performCalculation() {
         //formula buat kalkulasi pengurangan
         result = parseInt(calculator.firstNumber) - parseInt(calculator.displayNumber)
     }
+    // objek yg akan dikirim sbg argumen fungsi putHistory()
     const history = {
         firstNumber: calculator.firstNumber,
         secondNumber: calculator.displayNumber,
@@ -61,33 +91,4 @@ function performCalculation() {
     putHistory(history);
     calculator.displayNumber = result;
     renderHistory();
-}
-const buttons = document.querySelectorAll(".button");
-for (let button of buttons) {
-    button.addEventListener('click', function(event) {
-        // biar elemen tombol yg diklik masuk ke display
-        const target = event.target;
-        //biar fungsi tombol CE kepake buat restart kalkulator
-        if(target.classList.contains('clear')) {
-            clearCalculator();
-            updateDisplay();
-            return;
-        }
-        if(target.classList.contains('negative')) {
-            inverseNumber();
-            updateDisplay();
-            return;
-        }
-        if(target.classList.contains('equals')) {
-            performCalculation();
-            updateDisplay();
-            return;
-        }
-        if(target.classList.contains('operator')) {
-            handleOperator(target.innerText)
-            return;
-        }
-        inputDigit(target.innerText);
-        updateDisplay()
-    });
 }

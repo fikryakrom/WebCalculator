@@ -48,12 +48,13 @@ body {
     font-weight: bold;
 }
 .history {
+    text-align: center;
     width: 80%;
     margin: 30px auto 0 auto;
     overflow: scroll;
 }
 table {
-    border-color: collapse;
+    border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
     border: 1px solid #ddd;

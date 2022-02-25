@@ -1,4 +1,4 @@
-const CACHE_KEY = "calculation_history"
+const CACHE_KEY = "calculation_history";
     /* ini adl key to access and save data to localStorage
     localStorage cuma bisa nyimpen data primitif, kyk string */
 function checkForStorage() {
@@ -22,6 +22,7 @@ function putHistory(data) {
             /* pop(): ngehapus nilai index terakhir di array
             realisasi fungsi: hanya 5 riwayat kalkulasi terbaru/terakhir yg muncul */
         }
+        localStorage.setItem(CACHE_KEY, JSON.stringify(historyData));
     }
 }
 function showHistory() {
@@ -34,7 +35,8 @@ function showHistory() {
 }
 function renderHistory() {
     const historyData = showHistory();
-    let historyList = document.querySelector("historyList");
+    let historyList = document.querySelector("#historyList");
+    // selalu hapus konten HTML pada elemen historyList, agar ga muncul data ganda
     historyList.innerHTML = "";
     for(let history of historyData) {
         let row = document.createElement('tr');
@@ -45,4 +47,5 @@ function renderHistory() {
         historyList.appendChild(row);
     }
 }
+// memunculkan data history ketika web pertama kali dibuka
 renderHistory();
